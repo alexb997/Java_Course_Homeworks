@@ -1,73 +1,62 @@
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class SecondMax {
+
     public static void main(String[] args) {
-        int leng=0;
-        boolean invalid=false;
         Scanner in = new Scanner(System.in);
         System.out.print("Introduce the Array: ");
         String[] input = in.nextLine().split(" ");
         in.close();
-        if(input.length==0){
-            System.out.print("The input array is invalid, expected integers. Please try again");
-            return;
-        }
-        int[] elementsArr = new int[input.length];
-        String temp;
-        for(String element: input) {
-            if(element.length()==0){
-                invalid=true;
-                break;
-            }else {
-                if (element.startsWith("-")) {
-                    temp = element.substring(1);
-                    if (temp.chars().allMatch(Character::isDigit)) {
-                        try {
-                            elementsArr[leng++] = Integer.parseInt(element);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Input value is out of Integer bounds");
-                            invalid=true;
-                            break;
-                        }
-                    } else {
-                        invalid = true;
-                        break;
-                    }
-                } else {
-                    if (element.chars().allMatch(Character::isDigit)) {
-                        try {
-                            elementsArr[leng++] = Integer.parseInt(element);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Input value is out of Integer bounds");
-                            invalid=true;
-                            break;
-                        }
-                    } else {
-                        invalid = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if(invalid){
-            System.out.print("The input array is invalid, expected integers. Please try again ");
-        }else {
+        try{
+            int[] elementsArr = convertToIntArr(input);
             getSecondMax(elementsArr);
+        }catch (NoSuchElementException e) {
+            System.out.println("The input array is invalid, expected integers. Please try again!\n Example input: 24 13 -3 22113");
         }
     }
-    public static void getSecondMax(int[] arr){
-        SortedSet<Integer> set = new TreeSet<Integer>();
-        for (int element: arr) {
-            set.add(element);
+
+    public static int[] convertToIntArr(String[] strArr) throws NoSuchElementException {
+        int[] intArr= new int[strArr.length];
+        int length=0;
+        for(String element: strArr) {
+            try{
+                if(isValid(element))
+                    intArr[length++]=Integer.parseInt(element);
+            }catch (NumberFormatException e){
+                throw new NoSuchElementException();
+            }
         }
-        if(set.size()==1){
+        return intArr;
+    }
+
+    private static boolean isValid(String element){
+        String toBeChecked;
+        if (element.startsWith("-")) {
+            toBeChecked = element.substring(1);
+        } else {
+            toBeChecked=element;
+        }
+        return toBeChecked.chars().allMatch(Character::isDigit);
+    }
+
+    public static void getSecondMax(int[] arr){
+        SortedSet<Integer> sortedSet = new TreeSet<>();
+        for (int element: arr) {
+            sortedSet.add(element);
+        }
+        if(sortedSet.size()==1){
             System.out.println("No second max value was found");
         }else {
-            set.remove(set.last());
-            System.out.println(set.last());
+            try {
+                sortedSet.remove(sortedSet.last());
+                System.out.println(sortedSet.last());
+            }catch (NoSuchElementException e){
+                System.out.println("The input array is invalid, expected integers. Please try again! \nExample input: 24 13 -3 22113");
+            }
         }
     }
 }
