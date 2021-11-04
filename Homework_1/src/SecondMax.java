@@ -12,7 +12,11 @@ public class SecondMax {
         in.close();
         try {
             List<Integer> integerArray = convertToIntArray(input);
-            getSecondMax(integerArray);
+            if(input.length==integerArray.size()) {
+                getSecondMax(integerArray);
+            }else{
+                System.out.println(ERROR_MESSAGE);
+            }
         } catch (NoSuchElementException | NumberFormatException e) {
             System.out.println(ERROR_MESSAGE);
         }
@@ -53,7 +57,8 @@ public class SecondMax {
     }
 
     private static void getSecondMaxAlternative(List<Integer> array) {
-        int size = array.size(), temp;
+        int size = array.size();
+        int temp;
         if(array.size()==1){
             System.out.println("No second max value was found");
         }else {
