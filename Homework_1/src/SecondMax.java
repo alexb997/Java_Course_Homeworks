@@ -52,4 +52,25 @@ public class SecondMax {
         }
     }
 
+    private static void getSecondMaxAlternative(List<Integer> array) {
+        int size = array.size(), temp;
+        if(array.size()==1){
+            System.out.println("No second max value was found");
+        }else {
+            for (int indexI = 0; indexI < size; indexI++) {
+                for (int indexJ = indexI + 1; indexJ < size; indexJ++) {
+                    if (array.get(indexI) > array.get(indexJ)) {
+                        temp = array.get(indexI);
+                        array.set(indexI, array.get(indexJ));
+                        array.set(indexJ, temp);
+                    }
+                }
+            }
+            try{
+                System.out.println(array.get(size-2));
+            }catch (IndexOutOfBoundsException e){
+                System.out.println(ERROR_MESSAGE);
+            }
+        }
+    }
 }
