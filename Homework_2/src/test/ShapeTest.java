@@ -1,3 +1,9 @@
+package test;
+
+import forms.Circle;
+import forms.Rectangle;
+import shape.Shape;
+
 public class ShapeTest {
     public static void main(String[] args) {
         Shape shape = new Shape();
@@ -5,7 +11,7 @@ public class ShapeTest {
         shape.setColor("red");
         shape.setFilled(false);
         System.out.println(shape.toString());
-        shape = new Shape ("red",true);
+        shape = new Shape("red",true);
         System.out.println(shape.toString());
         Circle circle = new Circle();
         System.out.println(circle.toString());

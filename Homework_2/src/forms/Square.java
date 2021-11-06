@@ -1,3 +1,7 @@
+package forms;
+
+import forms.Rectangle;
+
 public class Square extends Rectangle {
     public Square() {
     }
@@ -21,7 +25,7 @@ public class Square extends Rectangle {
 
     @Override
     public String toString() {
-        return "A Square with side=" + super.getWidth() +
+        return "A forms.Square with side=" + super.getWidth() +
                 ", which is a subclass of " + super.toString();
     }
 
@@ -29,13 +33,10 @@ public class Square extends Rectangle {
     -do you need to override the getArea() and getPerimeter() methods?
 
     If you override the methods please leave comments in the methods why you chose to override them,
-
     otherwise leave a comment in class why they shouldn't be overriden.
 
-    Here as the programmer that wrote them, i know how the methods getArea() and getPerimeter()
-        work and what parameters needs, but for a user or another programmer the logic would dictate
-        that the getArea() and getPerimeter methods for this class would need just side as parameter.
-        So a override for this method would be needed since it's more intuitive and user friendly.
+    They don't need to be overriden since they don't take any parameter and the side setter changes the value
+    of length and width at the same time making the getArea() and getPerimeter() methods viable to use.
      */
 
     @Override

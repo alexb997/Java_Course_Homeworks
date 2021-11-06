@@ -1,4 +1,8 @@
-public class Rectangle extends Shape{
+package forms;
+
+import shape.Shape;
+
+public class Rectangle extends Shape {
     private double width;
     private double length;
 
@@ -48,7 +52,7 @@ public class Rectangle extends Shape{
 
     @Override
     public String toString() {
-        return "A Rectangle with width=" + width +
+        return "A forms.Rectangle with width=" + width +
                 " and length=" + length +
                 ", which is a subclass of " + super.toString();
     }

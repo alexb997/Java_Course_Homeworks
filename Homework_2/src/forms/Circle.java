@@ -1,3 +1,7 @@
+package forms;
+
+import shape.Shape;
+
 public class Circle extends Shape {
     private double radius;
 
@@ -34,6 +38,6 @@ public class Circle extends Shape {
 
     @Override
     public String toString() {
-        return "A Circle with radius " + this.radius + ", which is a subclass of " + super.toString();
+        return "A forms.Circle with radius " + this.radius + ", which is a subclass of " + super.toString();
     }
 }
