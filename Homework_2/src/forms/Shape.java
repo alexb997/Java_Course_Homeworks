@@ -1,4 +1,4 @@
-package shape;
+package forms;
 
 public class Shape {
     private String color;
@@ -32,6 +32,6 @@ public class Shape {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "A shape.Shape with color of " + this.color + (this.filled ? " and filled" : " and not filled");
+        return "A forms.Shape with color of " + this.color + (this.filled ? " and filled" : " and not filled");
     }
 }

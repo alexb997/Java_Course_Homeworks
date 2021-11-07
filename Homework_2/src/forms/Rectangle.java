@@ -1,7 +1,5 @@
 package forms;
 
-import shape.Shape;
-
 public class Rectangle extends Shape {
     private double width;
     private double length;

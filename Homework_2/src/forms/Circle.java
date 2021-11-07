@@ -1,7 +1,5 @@
 package forms;
 
-import shape.Shape;
-
 public class Circle extends Shape {
     private double radius;
 
