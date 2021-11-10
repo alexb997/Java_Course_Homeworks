@@ -7,8 +7,8 @@ public interface Movable {
 
     int PLAIN_X_MAX = 1000;
     int PLAIN_Y_MAX = 1000;
-    int PLAIN_X_MIN = 1000;
-    int PLAIN_Y_MIN = 1000;
+    int PLAIN_X_MIN = -1000;
+    int PLAIN_Y_MIN = -1000;
 
     /**
      * Moves the form up in the plain. The implementation should take care of

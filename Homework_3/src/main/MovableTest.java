@@ -12,11 +12,11 @@ public class MovableTest {
         System.out.println(circle);
 
         point.moveLeft();
-        point.moveUp();
+        point.moveUp(3);
         System.out.println(point);
 
         circle.moveRight(2);
-        circle.moveDown(3);
+        circle.moveDown(521);
         System.out.println(circle);
     }
 }
