@@ -1,19 +1,26 @@
 package moving;
 
+import exceptions.OutOfBound;
 import exceptions.PointOutOfBound;
 
 public class MovablePoint implements Movable {
     private int x;
     private int y;
-    private int xSpeed;
-    private int ySpeed;
+    private final int xSpeed;
+    private final int ySpeed;
 
-    public int getxSpeed() {
-        return xSpeed;
-    }
-
-    public int getySpeed() {
-        return ySpeed;
+    public MovablePoint(int x, int y, int xSpeed, int ySpeed) {
+        try{
+            if(!isInBounds(x,y)){
+                throw new OutOfBound("The position would be out of the allowed zone");
+            }
+        }catch (OutOfBound e){
+            e.printStackTrace();
+        }
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
     }
 
     public int getX() {
@@ -22,23 +29,6 @@ public class MovablePoint implements Movable {
 
     public int getY() {
         return y;
-    }
-
-    public MovablePoint(int x, int y, int xSpeed, int ySpeed) {
-        this.x = x;
-        this.y = y;
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
-    }
-
-    @Override
-    public String toString() {
-        return "MovablePoint{" +
-                "x=" + x +
-                ", y=" + y +
-                ", xSpeed=" + xSpeed +
-                ", ySpeed=" + ySpeed +
-                '}';
     }
 
     @Override
@@ -136,5 +126,20 @@ public class MovablePoint implements Movable {
         }catch (PointOutOfBound e){
             e.printStackTrace();
         }
+    }
+
+    public boolean isInBounds(int x,int y){
+        return x<=Movable.PLAIN_X_MAX && x>=Movable.PLAIN_X_MIN &&
+                y<=Movable.PLAIN_Y_MAX && y>=Movable.PLAIN_Y_MIN;
+    }
+
+    @Override
+    public String toString() {
+        return "MovablePoint{" +
+                "x=" + x +
+                ", y=" + y +
+                ", xSpeed=" + xSpeed +
+                ", ySpeed=" + ySpeed +
+                '}';
     }
 }

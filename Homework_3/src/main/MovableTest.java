@@ -16,7 +16,7 @@ public class MovableTest {
         System.out.println(point);
 
         circle.moveRight(2);
-        circle.moveDown(521);
+        circle.moveDown(5221222);
         System.out.println(circle);
     }
 }
