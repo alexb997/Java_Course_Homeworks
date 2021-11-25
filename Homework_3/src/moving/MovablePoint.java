@@ -9,12 +9,12 @@ public class MovablePoint implements Movable {
     private final int xSpeed;
     private final int ySpeed;
 
-    public MovablePoint(int x, int y, int xSpeed, int ySpeed) throws OutOfBound {
+    public MovablePoint(int x, int y, int xSpeed, int ySpeed) throws PointOutOfBound {
         if(!isInBounds(x,y)){
-            throw new OutOfBound("The position would be out of the allowed zone");
+            throw new PointOutOfBound("The position would be out of the allowed zone");
         }
         if(xSpeed<0 || ySpeed<0)
-            throw new OutOfBound("The xSpeed and ySpeed value can't be negative");
+            throw new PointOutOfBound("The xSpeed and ySpeed value can't be negative");
         this.x = x;
         this.y = y;
         this.xSpeed = xSpeed;

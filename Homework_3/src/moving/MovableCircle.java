@@ -10,13 +10,13 @@ public class MovableCircle implements Movable {
     private final int radius;
     private final MovablePoint center;
 
-    public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) throws OutOfBound {
+    public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) throws CircleOutOfBound,PointOutOfBound {
         if(radius<0){
-            throw new OutOfBound("Radius can't be a negative value");
+            throw new CircleOutOfBound("Radius can't be a negative value");
         }
         this.center = new MovablePoint(x, y, xSpeed, ySpeed);
         if (!isInBounds(radius, this.center)) {
-            throw new OutOfBound("Radius would place it out of allowed zone");
+            throw new CircleOutOfBound("Radius would place it out of allowed zone");
         }
         this.radius = radius;
     }
