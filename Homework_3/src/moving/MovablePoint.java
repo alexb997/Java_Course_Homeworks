@@ -9,14 +9,12 @@ public class MovablePoint implements Movable {
     private final int xSpeed;
     private final int ySpeed;
 
-    public MovablePoint(int x, int y, int xSpeed, int ySpeed) {
-        try{
-            if(!isInBounds(x,y)){
-                throw new OutOfBound("The position would be out of the allowed zone");
-            }
-        }catch (OutOfBound e){
-            e.printStackTrace();
+    public MovablePoint(int x, int y, int xSpeed, int ySpeed) throws OutOfBound {
+        if(!isInBounds(x,y)){
+            throw new OutOfBound("The position would be out of the allowed zone");
         }
+        if(xSpeed<0 || ySpeed<0)
+            throw new OutOfBound("The xSpeed and ySpeed value can't be negative");
         this.x = x;
         this.y = y;
         this.xSpeed = xSpeed;
@@ -32,103 +30,73 @@ public class MovablePoint implements Movable {
     }
 
     @Override
-    public void moveUp(){
-        try {
-            if (this.y + this.ySpeed > Movable.PLAIN_Y_MAX) {
-                throw new PointOutOfBound("Can't move point any higher!");
-            }
-            this.y += this.ySpeed;
-        } catch (PointOutOfBound e) {
-            e.printStackTrace();
+    public void moveUp() throws PointOutOfBound{
+        if (this.y + this.ySpeed > Movable.PLAIN_Y_MAX) {
+            throw new PointOutOfBound("Can't move point any higher!");
         }
+        this.y += this.ySpeed;
     }
 
     @Override
-    public void moveDown(){
-        try{
-            if(this.y - this.ySpeed < Movable.PLAIN_Y_MIN){
-                throw new PointOutOfBound("Can't move point any lower!");
-            }
-            this.y -= this.ySpeed;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveDown() throws PointOutOfBound{
+        if(this.y - this.ySpeed < Movable.PLAIN_Y_MIN){
+            throw new PointOutOfBound("Can't move point any lower!");
         }
-    }
-
-    @Override
-    public void moveLeft() {
-        try{
-            if(this.x - this.xSpeed < Movable.PLAIN_X_MIN){
-                throw new PointOutOfBound("Can't move point any more to the left!");
-            }
-            this.x -= this.xSpeed;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
-        }
+        this.y -= this.ySpeed;
 
     }
 
     @Override
-    public void moveRight() {
-        try{
-            if(this.x + this.xSpeed > Movable.PLAIN_X_MAX){
-                throw new PointOutOfBound("Can't move point any more to the right!");
-            }
-            this.x += this.xSpeed;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveLeft() throws PointOutOfBound{
+        if(this.x - this.xSpeed < Movable.PLAIN_X_MIN){
+            throw new PointOutOfBound("Can't move point any more to the left!");
         }
+        this.x -= this.xSpeed;
     }
 
     @Override
-    public void moveUp(int howMuch){
-        try{
-            if(this.x + howMuch > Movable.PLAIN_Y_MAX){
-                throw new PointOutOfBound("Can't move point any higher!");
-            }
-            this.y += howMuch;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveRight() throws PointOutOfBound{
+        if(this.x + this.xSpeed > Movable.PLAIN_X_MAX){
+            throw new PointOutOfBound("Can't move point any more to the right!");
         }
+        this.x += this.xSpeed;
     }
 
     @Override
-    public void moveDown(int howMuch){
-        try{
-            if(this.y - howMuch < Movable.PLAIN_Y_MIN){
-                throw new PointOutOfBound("Can't move point any lower!");
-            }
-            this.y -= howMuch;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveUp(int howMuch) throws PointOutOfBound{
+        if(this.x + howMuch > Movable.PLAIN_Y_MAX){
+            throw new PointOutOfBound("Can't move point any higher!");
         }
+        this.y += howMuch;
     }
 
     @Override
-    public void moveLeft(int howMuch){
-        try{
-            if(this.x - howMuch < Movable.PLAIN_X_MIN){
-                throw new PointOutOfBound("Can't move point any more to the left!");
-            }
-            this.x -= howMuch;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveDown(int howMuch) throws PointOutOfBound{
+        if(this.y - howMuch < Movable.PLAIN_Y_MIN){
+            throw new PointOutOfBound("Can't move point any lower!");
         }
+        this.y -= howMuch;
     }
 
     @Override
-    public void moveRight(int howMuch)  {
-        try{
-            if(this.x + howMuch > Movable.PLAIN_X_MAX){
-                throw new PointOutOfBound("Can't move point any more to the right!");
-            }
-            this.x += howMuch;
-        }catch (PointOutOfBound e){
-            e.printStackTrace();
+    public void moveLeft(int howMuch) throws PointOutOfBound{
+        if(this.x - howMuch < Movable.PLAIN_X_MIN){
+            throw new PointOutOfBound("Can't move point any more to the left!");
         }
+        this.x -= howMuch;
+
     }
 
-    public boolean isInBounds(int x,int y){
+    @Override
+    public void moveRight(int howMuch) throws PointOutOfBound{
+        if(this.x + howMuch > Movable.PLAIN_X_MAX){
+            throw new PointOutOfBound("Can't move point any more to the right!");
+        }
+        this.x += howMuch;
+
+    }
+
+    private boolean isInBounds(int x,int y){
         return x<=Movable.PLAIN_X_MAX && x>=Movable.PLAIN_X_MIN &&
                 y<=Movable.PLAIN_Y_MAX && y>=Movable.PLAIN_Y_MIN;
     }
