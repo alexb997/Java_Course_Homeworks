@@ -1,6 +1,8 @@
 package main;
 
+import exceptions.CircleOutOfBound;
 import exceptions.OutOfBound;
+import exceptions.PointOutOfBound;
 import exceptions.RuntimeOutOfBound;
 import moving.MovableCircle;
 import moving.MovablePoint;
@@ -24,7 +26,7 @@ public class MovableTest {
             circle.moveRight(2);
             circle.moveDown(222);
             System.out.println(circle);
-        } catch (OutOfBound | RuntimeOutOfBound e){
+        } catch (PointOutOfBound | CircleOutOfBound e){
             e.printStackTrace();
         }
     }
