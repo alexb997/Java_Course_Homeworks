@@ -40,32 +40,32 @@ public interface Movable {
     /**
      * Moves the form up in the plain with the specified number of points.
      *
-     * @param howMuch
+     * @param distance
      *            the number of points to move up in the plain
      */
-    void moveUp(int howMuch) throws PointOutOfBound, CircleOutOfBound;
+    void moveUp(int distance) throws PointOutOfBound, CircleOutOfBound;
 
     /**
      * Moves the form down in the plain with the specified number of points.
      *
-     * @param howMuch
+     * @param distance
      *            the number of points to move down in the plain
      */
-    void moveDown(int howMuch) throws PointOutOfBound, CircleOutOfBound;
+    void moveDown(int distance) throws PointOutOfBound, CircleOutOfBound;
 
     /**
      * Moves the form left in the plain with the specified number of points.
      *
-     * @param howMuch
+     * @param distance
      *            the number of points to move left in the plain
      */
-    void moveLeft(int howMuch) throws PointOutOfBound, CircleOutOfBound;
+    void moveLeft(int distance) throws PointOutOfBound, CircleOutOfBound;
 
     /**
      * Moves the form right in the plain with the specified number of points.
      *
-     * @param howMuch
+     * @param distance
      *            the number of points to move right in the plain
      */
-    void moveRight(int howMuch) throws PointOutOfBound, CircleOutOfBound;
+    void moveRight(int distance) throws PointOutOfBound, CircleOutOfBound;
 }

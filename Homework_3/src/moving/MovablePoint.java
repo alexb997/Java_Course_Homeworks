@@ -72,36 +72,36 @@ public class MovablePoint implements Movable {
     }
 
     @Override
-    public void moveUp(int howMuch) throws PointOutOfBound{
-        if(x + howMuch > Movable.PLAIN_Y_MAX){
+    public void moveUp(int distance) throws PointOutOfBound{
+        if(x + distance > Movable.PLAIN_Y_MAX){
             throw new PointOutOfBound("Can't move point any higher!");
         }
-        y += howMuch;
+        y += distance;
     }
 
     @Override
-    public void moveDown(int howMuch) throws PointOutOfBound{
-        if(y - howMuch < Movable.PLAIN_Y_MIN){
+    public void moveDown(int distance) throws PointOutOfBound{
+        if(y - distance < Movable.PLAIN_Y_MIN){
             throw new PointOutOfBound("Can't move point any lower!");
         }
-        y -= howMuch;
+        y -= distance;
     }
 
     @Override
-    public void moveLeft(int howMuch) throws PointOutOfBound{
-        if(x - howMuch < Movable.PLAIN_X_MIN){
+    public void moveLeft(int distance) throws PointOutOfBound{
+        if(x - distance < Movable.PLAIN_X_MIN){
             throw new PointOutOfBound("Can't move point any more to the left!");
         }
-        x -= howMuch;
+        x -= distance;
 
     }
 
     @Override
-    public void moveRight(int howMuch) throws PointOutOfBound{
-        if(x + howMuch > Movable.PLAIN_X_MAX){
+    public void moveRight(int distance) throws PointOutOfBound{
+        if(x + distance > Movable.PLAIN_X_MAX){
             throw new PointOutOfBound("Can't move point any more to the right!");
         }
-        x += howMuch;
+        x += distance;
 
     }
 

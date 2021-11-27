@@ -1,9 +1,7 @@
 package main;
 
 import exceptions.CircleOutOfBound;
-import exceptions.OutOfBound;
 import exceptions.PointOutOfBound;
-import exceptions.RuntimeOutOfBound;
 import moving.MovableCircle;
 import moving.MovablePoint;
 
