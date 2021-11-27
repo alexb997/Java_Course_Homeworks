@@ -141,7 +141,7 @@ public class MovableCircle implements Movable {
                 }
             }
             case "RIGHT": {
-                if (center.getX() + radius + center.getxSpeed() < Movable.PLAIN_Y_MIN){
+                if (center.getX() + radius + center.getxSpeed() > Movable.PLAIN_X_MAX){
                     throw new CircleOutOfBound(radiusMessageError);
                 }
             }
@@ -167,7 +167,7 @@ public class MovableCircle implements Movable {
                 }
             }
             case "RIGHT": {
-                if (center.getX() + radius + howMuch < Movable.PLAIN_Y_MIN){
+                if (center.getX() + radius + howMuch > Movable.PLAIN_X_MAX){
                     throw new CircleOutOfBound(radiusMessageError);
                 }
             }
