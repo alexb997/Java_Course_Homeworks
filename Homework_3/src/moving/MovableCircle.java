@@ -2,117 +2,176 @@ package moving;
 
 import exceptions.CircleOutOfBound;
 import exceptions.OutOfBound;
-import exceptions.PointOutOfBound;
+import exceptions.RuntimeOutOfBound;
 
 public class MovableCircle implements Movable {
     private int radius;
-    private MovablePoint center;
+    private final MovablePoint center;
 
-    public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) throws CircleOutOfBound, PointOutOfBound {
-        this.center = new MovablePoint(x, y, xSpeed, ySpeed);
-        if (!isInBounds(radius, this.center)) {
-            throw new CircleOutOfBound("Couldn't create circle",
-                    new OutOfBound("Radius " +(radius<0? "can't be negative ":"would place it out of allowed zone")));
+    private final String radiusMessageError = "Radius would place it out of allowed zone";
+
+    public MovableCircle(MovablePoint center, int radius){
+        try {
+            this.center = center;
+            setRadius(radius);
+        } catch (OutOfBound e) {
+            throw new RuntimeOutOfBound("Couldn't create circle", e);
+        }
+    }
+
+    public MovableCircle(int x, int y, int xSpeed, int ySpeed, int radius) {
+        try {
+            center = new MovablePoint(x, y, xSpeed, ySpeed);
+            setRadius(radius);
+        } catch (OutOfBound e) {
+            throw new RuntimeOutOfBound("Couldn't create circle", e);
+        }
+    }
+
+    private void setRadius(int radius) throws CircleOutOfBound {
+        if (!isInBounds(radius, center)) {
+            throw new CircleOutOfBound("Radius " +
+                    (radius < 0 ? "can't be negative " :
+                            "would place it out of allowed zone"));
         }
         this.radius = radius;
     }
 
     @Override
-    public void moveUp() throws CircleOutOfBound{
-        try{
-            if(center.getY() + center.getYSpeed() + radius > Movable.PLAIN_Y_MAX)
-                //ar trebui sa fac if-ul intr-o functie cu switch si posibil un al 2lea parametru
-                //if-ul verifica de poate exista cercul dupa mutare, try catch ar deveni inutil insa e necesar
-            //deoarece folosesc functia din movable point moveUp ce poate arunca exceptie.
-                //functie specifica sau las try catch?
-
+    public void moveUp() {
+        try {
+            isMovePossible("UP");
             center.moveUp();
-        }catch (PointOutOfBound e){
-            throw new CircleOutOfBound("Couldn't move circle ",e);
+        } catch (OutOfBound e) {
+            throw new RuntimeOutOfBound("Couldn't move the circle upwards ", e);
         }
-
     }
 
     @Override
-    public void moveDown() throws CircleOutOfBound{
+    public void moveDown() {
         try {
-            if (this.center.getY() - radius < Movable.PLAIN_Y_MIN)
-                throw new OutOfBound("Center Y - radius can't be lower than " + Movable.PLAIN_Y_MIN);
+            isMovePossible("DOWN");
             center.moveDown();
         } catch (OutOfBound e) {
-            throw new CircleOutOfBound("Couldn't move the circle downwards ",e);
+            throw new RuntimeOutOfBound("Couldn't move the circle downwards ", e);
         }
     }
 
     @Override
-    public void moveLeft() throws CircleOutOfBound{
+    public void moveLeft() {
         try {
-            if (this.center.getX() - radius < Movable.PLAIN_X_MIN)
-                throw new OutOfBound("Center X - radius can't be lower than " +Movable.PLAIN_X_MIN);
+            isMovePossible("LEFT");
             center.moveLeft();
         } catch (OutOfBound e) {
-            throw new CircleOutOfBound("Couldn't move the circle to the left ",e);
+            throw new RuntimeOutOfBound("Couldn't move the circle to the left ",e);
         }
     }
 
     @Override
-    public void moveRight() throws CircleOutOfBound{
+    public void moveRight(){
         try {
-            if (this.center.getX() + radius > Movable.PLAIN_X_MAX)
-                throw new OutOfBound("Center X + radius can't be higher than " +Movable.PLAIN_X_MAX);
+            isMovePossible("RIGHT");
             center.moveRight();
         } catch (OutOfBound e) {
-            throw new CircleOutOfBound("Couldn't move the circle to the right ",e);
+            throw new RuntimeOutOfBound("Couldn't move the circle to the right ",e);
         }
     }
 
     @Override
-    public void moveUp(int howMuch) throws CircleOutOfBound {
+    public void moveUp(int howMuch) {
         try {
-            if (this.center.getY() +howMuch + radius > Movable.PLAIN_Y_MAX)
-                throw new OutOfBound("Center Y + howMuch + radius can't be higher than " + Movable.PLAIN_Y_MAX);
+            isMovePossible("UP",howMuch);
             center.moveUp(howMuch);
         } catch (OutOfBound e) {
-            throw new CircleOutOfBound("Couldn't move the circle upwards ",e);
+            throw new RuntimeOutOfBound("Couldn't move the circle upwards ",e);
         }
     }
 
     @Override
-    public void moveDown(int howMuch) throws CircleOutOfBound {
+    public void moveDown(int howMuch) {
         try {
-            if (this.center.getY() -howMuch - radius < Movable.PLAIN_Y_MIN)
-                throw new OutOfBound("Center Y - howMuch -radius can't be lower than "+ Movable.PLAIN_Y_MIN);
+            isMovePossible("DOWN",howMuch);
             center.moveDown(howMuch);
         } catch (OutOfBound e) {
-            e.printStackTrace();
+            throw new RuntimeOutOfBound("Couldn't move the circle downwards ",e);
         }
     }
 
     @Override
-    public void moveRight(int howMuch) throws CircleOutOfBound {
-//        if (this.center.getX() + howMuch + radius > Movable.PLAIN_X_MAX)
-//            throw new CircleOutOfBound("Can't move circle to the Right!");
-//        try{
-//            center.moveRight(howMuch);
-//        }catch (PointOutOfBound e){
-//            e.printStackTrace();
-//        }
+    public void moveRight(int howMuch){
+        try {
+            isMovePossible("RIGHT",howMuch);
+            center.moveRight(howMuch);
+        } catch (OutOfBound e) {
+            throw new RuntimeOutOfBound("Couldn't move the circle to the right ",e);
+        }
     }
-//
+
     @Override
-    public void moveLeft(int howMuch) throws CircleOutOfBound {
-//        if (this.center.getX() - radius < Movable.PLAIN_X_MIN)
-//            throw new CircleOutOfBound("Can't move circle to the left!");
-//        try {
-//            center.moveLeft(howMuch);
-//        } catch (PointOutOfBound e) {
-//            e.printStackTrace();
-//        }
+    public void moveLeft(int howMuch) {
+        try {
+            isMovePossible("LEFT",howMuch);
+            center.moveLeft(howMuch);
+        } catch (OutOfBound e) {
+            throw new RuntimeOutOfBound("Couldn't move the circle to the left ",e);
+        }
     }
 
     private boolean isInBounds(int radius, MovablePoint center) {
         return radius + center.getX() <= Movable.PLAIN_X_MAX && center.getX() - radius >= Movable.PLAIN_X_MIN &&
                 radius + center.getY() <= Movable.PLAIN_Y_MAX && center.getY() - radius >= Movable.PLAIN_Y_MIN;
+    }
+
+    private void isMovePossible(String direction) throws CircleOutOfBound {
+        switch (direction) {
+            case "UP": {
+                if (center.getY() + radius + center.getySpeed() > Movable.PLAIN_Y_MAX) {
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+                break;
+            }
+            case "DOWN": {
+                if (center.getY() - radius - center.getySpeed() < Movable.PLAIN_Y_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+            case "LEFT": {
+                if (center.getX() - radius - center.getxSpeed() < Movable.PLAIN_X_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+            case "RIGHT": {
+                if (center.getX() + radius + center.getxSpeed() < Movable.PLAIN_Y_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+        }
+    }
+
+    private void isMovePossible(String direction,int howMuch) throws CircleOutOfBound {
+        switch (direction) {
+            case "UP": {
+                if (center.getY() + radius + howMuch > Movable.PLAIN_Y_MAX) {
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+                break;
+            }
+            case "DOWN": {
+                if (center.getY() - radius - howMuch < Movable.PLAIN_Y_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+            case "LEFT": {
+                if (center.getX() - radius - howMuch < Movable.PLAIN_X_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+            case "RIGHT": {
+                if (center.getX() + radius + howMuch < Movable.PLAIN_Y_MIN){
+                    throw new CircleOutOfBound(radiusMessageError);
+                }
+            }
+        }
     }
 
     @Override

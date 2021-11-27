@@ -30,72 +30,78 @@ public class MovablePoint implements Movable {
         return y;
     }
 
+    public int getxSpeed() {
+        return xSpeed;
+    }
 
+    public int getySpeed() {
+        return ySpeed;
+    }
 
     @Override
     public void moveUp() throws PointOutOfBound{
-        if (this.y + this.ySpeed > Movable.PLAIN_Y_MAX) {
+        if (y + ySpeed > Movable.PLAIN_Y_MAX) {
             throw new PointOutOfBound("Can't move point any higher!");
         }
-        this.y += this.ySpeed;
+        y += ySpeed;
     }
 
     @Override
     public void moveDown() throws PointOutOfBound{
-        if(this.y - this.ySpeed < Movable.PLAIN_Y_MIN){
+        if(y - ySpeed < Movable.PLAIN_Y_MIN){
             throw new PointOutOfBound("Can't move point any lower!");
         }
-        this.y -= this.ySpeed;
+        y -= ySpeed;
 
     }
 
     @Override
     public void moveLeft() throws PointOutOfBound{
-        if(this.x - this.xSpeed < Movable.PLAIN_X_MIN){
+        if(x - xSpeed < Movable.PLAIN_X_MIN){
             throw new PointOutOfBound("Can't move point any more to the left!");
         }
-        this.x -= this.xSpeed;
+        x -= xSpeed;
     }
 
     @Override
     public void moveRight() throws PointOutOfBound{
-        if(this.x + this.xSpeed > Movable.PLAIN_X_MAX){
+        if(x + xSpeed > Movable.PLAIN_X_MAX){
             throw new PointOutOfBound("Can't move point any more to the right!");
         }
-        this.x += this.xSpeed;
+        x += xSpeed;
     }
 
     @Override
     public void moveUp(int howMuch) throws PointOutOfBound{
-        if(this.x + howMuch > Movable.PLAIN_Y_MAX){
+        if(x + howMuch > Movable.PLAIN_Y_MAX){
             throw new PointOutOfBound("Can't move point any higher!");
         }
-        this.y += howMuch;
+        y += howMuch;
     }
 
     @Override
     public void moveDown(int howMuch) throws PointOutOfBound{
-        if(this.y - howMuch < Movable.PLAIN_Y_MIN){
+        if(y - howMuch < Movable.PLAIN_Y_MIN){
             throw new PointOutOfBound("Can't move point any lower!");
         }
-        this.y -= howMuch;
+        y -= howMuch;
     }
 
     @Override
     public void moveLeft(int howMuch) throws PointOutOfBound{
-        if(this.x - howMuch < Movable.PLAIN_X_MIN){
+        if(x - howMuch < Movable.PLAIN_X_MIN){
             throw new PointOutOfBound("Can't move point any more to the left!");
         }
-        this.x -= howMuch;
+        x -= howMuch;
 
     }
 
     @Override
     public void moveRight(int howMuch) throws PointOutOfBound{
-        if(this.x + howMuch > Movable.PLAIN_X_MAX){
+        if(x + howMuch > Movable.PLAIN_X_MAX){
             throw new PointOutOfBound("Can't move point any more to the right!");
         }
-        this.x += howMuch;
+        x += howMuch;
 
     }
 
