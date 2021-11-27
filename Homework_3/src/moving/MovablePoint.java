@@ -30,6 +30,8 @@ public class MovablePoint implements Movable {
         return y;
     }
 
+
+
     @Override
     public void moveUp() throws PointOutOfBound{
         if (this.y + this.ySpeed > Movable.PLAIN_Y_MAX) {
