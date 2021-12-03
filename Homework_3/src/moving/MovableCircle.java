@@ -22,12 +22,14 @@ public class MovableCircle implements Movable {
     }
 
     private void setRadius(int radius) throws CircleOutOfBound {
-        if (!isInBounds(radius, center)) {
-            throw new CircleOutOfBound("Radius " +
-                    (radius < 0 ? "can't be negative " :
-                            "would place it out of allowed zone"));
+        if(radius > 0) {
+            if (!isInBounds(radius, center)) {
+                throw new CircleOutOfBound("Radius of " + radius + " would place it out of allowed zone");
+            }
+            this.radius = radius;
+        }else{
+            throw new CircleOutOfBound("Radius can't be negative or zero");
         }
-        this.radius = radius;
     }
 
     @Override
@@ -111,6 +113,9 @@ public class MovableCircle implements Movable {
     }
 
     private void validateMove(Direction direction, int distance) throws CircleOutOfBound {
+        if(distance<1){
+            throw new CircleOutOfBound("Distance can't be negative or zero");
+        }
         switch (direction) {
             case UP: {
                 if (center.getY() + radius + distance > Movable.PLAIN_Y_MAX) {

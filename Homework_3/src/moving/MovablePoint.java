@@ -1,6 +1,5 @@
 package moving;
 
-import exceptions.OutOfBound;
 import exceptions.PointOutOfBound;
 
 public class MovablePoint implements Movable {
@@ -13,8 +12,8 @@ public class MovablePoint implements Movable {
         if(!isInBounds(x,y)){
             throw new PointOutOfBound("The position would be out of the allowed zone");
         }
-        if(xSpeed<0 || ySpeed<0) {
-            throw new PointOutOfBound("The xSpeed and ySpeed value can't be negative");
+        if(xSpeed <= 0 || ySpeed <= 0) {
+            throw new PointOutOfBound("The xSpeed and ySpeed value can't be negative or zero");
         }
         this.x = x;
         this.y = y;
@@ -73,35 +72,50 @@ public class MovablePoint implements Movable {
 
     @Override
     public void moveUp(int distance) throws PointOutOfBound{
-        if(x + distance > Movable.PLAIN_Y_MAX){
-            throw new PointOutOfBound("Can't move point any higher!");
+        if(distance > 0) {
+            if (x + distance > Movable.PLAIN_Y_MAX) {
+                throw new PointOutOfBound("Can't move point any higher!");
+            }
+            y += distance;
+        }else{
+            throw new PointOutOfBound("Invalid distance value!");
         }
-        y += distance;
     }
 
     @Override
     public void moveDown(int distance) throws PointOutOfBound{
-        if(y - distance < Movable.PLAIN_Y_MIN){
-            throw new PointOutOfBound("Can't move point any lower!");
+        if(distance > 0) {
+            if(y - distance < Movable.PLAIN_Y_MIN){
+                throw new PointOutOfBound("Can't move point any lower!");
+            }
+            y -= distance;
+        }else{
+            throw new PointOutOfBound("Invalid distance value!");
         }
-        y -= distance;
     }
 
     @Override
     public void moveLeft(int distance) throws PointOutOfBound{
-        if(x - distance < Movable.PLAIN_X_MIN){
-            throw new PointOutOfBound("Can't move point any more to the left!");
+        if(distance > 0) {
+            if(x - distance < Movable.PLAIN_X_MIN){
+                throw new PointOutOfBound("Can't move point any more to the left!");
+            }
+            x -= distance;
+        }else{
+            throw new PointOutOfBound("Invalid distance value!");
         }
-        x -= distance;
-
     }
 
     @Override
     public void moveRight(int distance) throws PointOutOfBound{
-        if(x + distance > Movable.PLAIN_X_MAX){
-            throw new PointOutOfBound("Can't move point any more to the right!");
+        if(distance > 0) {
+            if (x + distance > Movable.PLAIN_X_MAX) {
+                throw new PointOutOfBound("Can't move point any more to the right!");
+            }
+            x += distance;
+        }else{
+            throw new PointOutOfBound("Invalid distance value!");
         }
-        x += distance;
 
     }
 
